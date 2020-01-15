@@ -82,8 +82,8 @@ struct MainState {
 }
 
 class DirectTransitionTests : public Test {
-    protected:    
-        hsm::Sm<MainState> sm;
+  protected:
+    hsm::sm<MainState> sm;
 };
 
 TEST_F(DirectTransitionTests, should_transit_directly_into_substate)

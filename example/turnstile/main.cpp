@@ -15,11 +15,11 @@ struct Coin {
 };
 
 // Guards
-const auto noError = [](auto /*event*/){return true;};
+const auto noError = [](auto /*event*/) { return true; };
 
 // Actions
-const auto beep = [](auto /*event*/){ std::cout << "beep!" << std::endl;};
-const auto blink = [](auto /*event*/){ std::cout << "blink, blink, blink!" << std::endl;};
+const auto beep = [](auto /*event*/) { std::cout << "beep!" << std::endl; };
+const auto blink = [](auto /*event*/) { std::cout << "blink, blink, blink!" << std::endl; };
 
 struct Turnstile {
     constexpr auto make_transition_table()
@@ -46,7 +46,7 @@ struct Turnstile {
 
 int main()
 {
-    hsm::Sm<Turnstile> turnstileSm;
+    hsm::sm<Turnstile> turnstileSm;
 
     // The turnstile is initially locked
     assert(turnstileSm.is(Locked {}));

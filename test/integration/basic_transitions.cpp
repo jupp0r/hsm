@@ -100,8 +100,8 @@ struct MainState {
 }
 
 class BasicTransitionTests : public Test {
-    protected:    
-        hsm::Sm<MainState> sm;
+  protected:
+    hsm::sm<MainState> sm;
 };
 
 TEST_F(BasicTransitionTests, should_start_in_initial_state)

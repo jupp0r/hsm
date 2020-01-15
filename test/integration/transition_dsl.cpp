@@ -52,14 +52,14 @@ struct MainState {
 
     constexpr auto initial_state()
     {
-        return hsm::initial(S1{});
+        return hsm::initial(S1 {});
     }
 };
 }
 
 class TransitionDslTests : public Test {
-    protected:    
-        hsm::Sm<MainState> sm;
+  protected:
+    hsm::sm<MainState> sm;
 };
 
 TEST_F(TransitionDslTests, should_use_transition_dsl)

@@ -79,11 +79,9 @@ struct MainState {
 }
 
 class GuardsActionsTests : public Test {
-    protected:    
-        hsm::Sm<MainState> sm;
+  protected:
+    hsm::sm<MainState> sm;
 };
-
-
 
 TEST_F(GuardsActionsTests, should_call_action)
 {

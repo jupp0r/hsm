@@ -107,28 +107,28 @@ struct MainState {
 }
 
 class OrthogonalRegionsTests : public Test {
-    protected:    
-        hsm::Sm<MainState> sm;
+  protected:
+    hsm::sm<MainState> sm;
 };
 
 TEST_F(OrthogonalRegionsTests, should_start_in_region_initial_states)
 {
-    ASSERT_TRUE(sm.is(0, MainState{}, S1 {}));
-    ASSERT_TRUE(sm.is(1, MainState{}, S3 {}));
+    ASSERT_TRUE(sm.is(0, MainState {}, S1 {}));
+    ASSERT_TRUE(sm.is(1, MainState {}, S3 {}));
 }
 
 TEST_F(OrthogonalRegionsTests, should_transit_in_all_regions)
 {
-    sm.process_event(e1{});
-    ASSERT_TRUE(sm.is(0, MainState{}, S2 {}));
-    ASSERT_TRUE(sm.is(1, MainState{}, S4 {}));
+    sm.process_event(e1 {});
+    ASSERT_TRUE(sm.is(0, MainState {}, S2 {}));
+    ASSERT_TRUE(sm.is(1, MainState {}, S4 {}));
 }
 
 TEST_F(OrthogonalRegionsTests, should_anonymous_transit_in_all_regions)
 {
-    sm.process_event(e2{});
-    ASSERT_TRUE(sm.is(0, MainState{}, S1 {}));
-    ASSERT_TRUE(sm.is(1, MainState{}, S1 {}));
+    sm.process_event(e2 {});
+    ASSERT_TRUE(sm.is(0, MainState {}, S1 {}));
+    ASSERT_TRUE(sm.is(1, MainState {}, S1 {}));
 }
 
 TEST_F(OrthogonalRegionsTests, should_guard_in_all_regions)

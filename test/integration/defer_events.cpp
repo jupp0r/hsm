@@ -35,7 +35,6 @@ const auto a1 = [](auto) {};
 using namespace ::testing;
 using namespace boost::hana;
 
-
 struct MainState {
     constexpr auto make_transition_table()
     {
@@ -66,14 +65,14 @@ struct MainState {
 
 class DeferEventsTests : public Test {
   protected:
-    hsm::Sm<MainState> sm;
+    hsm::sm<MainState> sm;
 };
 
 TEST_F(DeferEventsTests, should_defer_event)
 {
     ASSERT_TRUE(sm.is(S1 {}));
-    sm.process_event(e2{});
+    sm.process_event(e2 {});
     ASSERT_TRUE(sm.is(S1 {}));
-    sm.process_event(e1{});
+    sm.process_event(e1 {});
     ASSERT_TRUE(sm.is(S1 {}));
 }

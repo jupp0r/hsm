@@ -11,11 +11,11 @@ struct Stopped {
 };
 struct Paused {
 };
-struct Song1{
+struct Song1 {
 };
-struct Song2{
+struct Song2 {
 };
-struct Song3{
+struct Song3 {
 };
 
 // Events
@@ -46,8 +46,8 @@ const auto stop_and_open = [](auto) {};
 const auto pause_playback = [](auto) {};
 const auto stop_playback = [](auto) {};
 const auto resume_playback = [](auto) {};
-const auto start_next_song = [](auto){};
-const auto start_prev_song = [](auto){};
+const auto start_next_song = [](auto) {};
+const auto start_prev_song = [](auto) {};
 
 // Guards
 const auto none = [](auto event) { return true; };
@@ -65,7 +65,7 @@ struct Playing {
             hsm::transition(Song2 {}   , hsm::event<next_song> {} , none    , start_next_song   , Song3 {}      ),                        
             //            +------------+--------------------------+---------+-------------------+---------------+
             hsm::transition(Song3 {}   , hsm::event<prev_song> {} , none    , start_prev_song   , Song2 {}     ));
-            //            +------------+--------------------------+---------+-------------------+---------------+            
+            //            +------------+--------------------------+---------+-------------------+---------------+
         // clang-format on
     }
 
@@ -74,7 +74,6 @@ struct Playing {
         return hsm::initial(Song1 {});
     }
 };
-
 
 struct CdPlayer {
     constexpr auto make_transition_table()
@@ -99,7 +98,7 @@ struct CdPlayer {
             hsm::transition(Paused {}   , hsm::event<end_pause> {}   , none    , resume_playback  , Playing {}    ),                                                
             hsm::transition(Paused {}   , hsm::event<stop> {}        , none    , stop_playback    , Stopped {}    ),                                                            
             hsm::transition(Paused {}   , hsm::event<open_close> {}  , none    , stop_and_open    , Open {}      ));                                                                      
-            //            +-------------+----------------------------+---------+------------------+---------------+                                    
+            //            +-------------+----------------------------+---------+------------------+---------------+
         // clang-format on
     }
 
@@ -111,7 +110,7 @@ struct CdPlayer {
 
 int main()
 {
-    hsm::Sm<CdPlayer> CdPlayerSm;
+    hsm::sm<CdPlayer> CdPlayerSm;
 
     // Cd player is empty
     assert(CdPlayerSm.is(Empty {}));

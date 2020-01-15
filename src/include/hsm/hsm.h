@@ -30,18 +30,18 @@ namespace bh {
 using namespace boost::hana;
 }
 
-template <class RootState, class... OptionalParameters> class Sm {
+template <class RootState, class... OptionalParameters> class sm {
     using Region = std::uint8_t;
     using Events = decltype(collect_events_recursive(RootState {}));
-    std::array<StateIdx, maxInitialStates(RootState{})> m_currentState;
+    std::array<StateIdx, maxInitialStates(RootState {})> m_currentState;
     StateIdx m_currentParentState;
-    std::array<std::vector<std::size_t>, nParentStates(RootState{})> m_initial_states;
+    std::array<std::vector<std::size_t>, nParentStates(RootState {})> m_initial_states;
     std::array<std::vector<std::size_t>, nParentStates(RootState {})> m_history;
     bh::tuple<OptionalParameters...> m_optionalParameters;
     variant_queue<Events> m_defer_queue;
 
   public:
-    Sm(OptionalParameters... optionalParameters)
+    sm(OptionalParameters... optionalParameters)
         : m_currentParentState(getParentStateIdx(rootState(), rootState()))
         , m_defer_queue(collect_events_recursive(RootState {}))
     {
@@ -93,7 +93,7 @@ template <class RootState, class... OptionalParameters> class Sm {
             auto& result = DispatchTable<RootState, Event, OptionalParameters...>::table
                 [m_currentParentState][m_currentState[region]];
 
-            if(result.defer){
+            if (result.defer) {
                 m_defer_queue.push(event);
                 return true;
             }
@@ -133,7 +133,7 @@ template <class RootState, class... OptionalParameters> class Sm {
             for (std::size_t region = 0; region < m_initial_states[m_currentParentState].size();
                  region++) {
 
-                auto event = noneEvent{};
+                auto event = noneEvent {};
                 auto& result = DispatchTable<RootState, noneEvent, OptionalParameters...>::table
                     [m_currentParentState][m_currentState[region]];
 
@@ -201,10 +201,10 @@ template <class RootState, class... OptionalParameters> class Sm {
 
     void initCurrentState()
     {
-        for(std::size_t region = 0; region < m_initial_states[m_currentParentState].size(); region++){
+        for (std::size_t region = 0; region < m_initial_states[m_currentParentState].size();
+             region++) {
             m_currentState[region] = m_initial_states[m_currentParentState][region];
         }
-
     }
 };
 }

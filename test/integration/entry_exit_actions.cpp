@@ -56,7 +56,7 @@ struct SubState {
 
     constexpr auto initial_state()
     {
-        return hsm::initial(S1{});
+        return hsm::initial(S1 {});
     }
     constexpr auto on_entry()
     {
@@ -67,7 +67,6 @@ struct SubState {
         return [](auto event) { event.called->set_value(); };
     }
 };
-
 
 struct MainState {
     constexpr auto make_transition_table()
@@ -91,8 +90,8 @@ struct MainState {
 }
 
 class EntryExitActionsTests : public Test {
-    protected:    
-        hsm::Sm<MainState> sm;
+  protected:
+    hsm::sm<MainState> sm;
 };
 
 TEST_F(EntryExitActionsTests, should_call_entry_and_exit_action)
@@ -121,8 +120,8 @@ TEST_F(EntryExitActionsTests, DISABLED_should_call_entry_and_exit_action_of_subs
     auto exitActionCalled = std::make_shared<std::promise<void>>();
 
     ASSERT_TRUE(sm.is(S1 {}));
-    sm.process_event(e2{ entryActionCalled });
-    ASSERT_TRUE(sm.is(SubState{}, S1 {}));
+    sm.process_event(e2 { entryActionCalled });
+    ASSERT_TRUE(sm.is(SubState {}, S1 {}));
     sm.process_event(e2 { exitActionCalled });
     ASSERT_TRUE(sm.is(S1 {}));
 
